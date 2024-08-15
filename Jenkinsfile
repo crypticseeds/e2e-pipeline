@@ -10,7 +10,7 @@ pipeline{
         APP_NAME = "e2e-pipeline"
         RELEASE = "1.0.0"
         DOCKER_USER = "crypticseeds"
-        DOCKER_PASS = "dockerhub-token"
+        DOCKER_PASS = credentials"dockerhub-token"
         IMAGE_NAME = "${DOCKER_USER}/${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
     }
@@ -54,10 +54,8 @@ pipeline{
         stage('Docker Build and Push image'){
             steps{
                 script{
-                    docker.withDockerRegistry('',DOCKER_PASS){
-                        docker_image = docker.build("${IMAGE_NAME}")
-                    }
-                    docker.withDockerRegistry('',DOCKER_){
+                    docker.withRegistry('',DOCKER_PASS){
+                        def docker_image = docker.build("${IMAGE_NAME}")
                         docker_image.push("${IMAGE_TAG}")
                         docker_image.push("latest")
                     }
