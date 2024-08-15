@@ -17,5 +17,15 @@ pipeline{
                 git branch: 'main', credentialsId: 'GitHub', url: 'https://github.com/crypticseeds/e2e-pipeline.git'
             }
         }
+        stage('Build application'){
+            steps{
+                sh "mvn clean package"
+            }
+        }
+        stage( 'Test application'){
+            steps{
+                sh "mvn test"
+            }
+        }
     }
 }
