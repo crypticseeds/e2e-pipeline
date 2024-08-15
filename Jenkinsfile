@@ -36,5 +36,10 @@ pipeline{
                 }
             }
         }
+        stage{
+            step{
+                waitForQualityGate abortPipeline: False, credentialsId: 'sonarqube-token'
+            }
+        }
     }
 }
