@@ -6,6 +6,14 @@ pipeline{
         maven "Maven3"
         jdk "Java17"
     }
+    environment{
+        APP_NAME = "e2e-pipeline"
+        RELEASE = "1.0.0"
+        DOCKER_USER = "crypticseeds"
+        DOCKER_PASS = "dockerhub-token"
+        IMAGE_NAME = "${DOCKER_USER}/${APP_NAME}"
+        IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+    }
     stages{
         stage('Clean up workspace'){
             steps{
@@ -40,6 +48,20 @@ pipeline{
             steps{
                 script{
                 waitForQualityGate abortPipeline: false, credentialsId: 'sonarqube-token'
+                }
+            }
+        }
+        stage('Docker Build and Push image'){
+            steps{
+                script{
+                    docker.withDockerRegistry('',DOCKER_PASS){
+                        docker_image = docker.build("${IMAGE_NAME}")
+                    }
+                    docker.withDockerRegistry('',DOCKER_){
+                        docker_image.push("${IMAGE_TAG}")
+                        docker_image.push("latest")
+                    }
+
                 }
             }
         }
