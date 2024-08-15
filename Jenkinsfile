@@ -14,7 +14,7 @@ pipeline{
         }
         stage('Checkout from SCM'){
             steps{
-                git branch: 'main', credentialsId: 'GitHub' url: 'https://github.com/crypticseeds/e2e-pipeline.git'
+                git branch: 'main', credentialsId: 'GitHub', url: 'https://github.com/crypticseeds/e2e-pipeline.git'
             }
         }
     }
