@@ -15,7 +15,7 @@ Jenkinsfile
             }
             stage('Checkout from SCM'){
                 steps{
-                    git branch: 'main', credentialsId: 'GitHub' url: 'https://github.com/crypticseeds/e2e-pipleine.git'
+                    git branch: 'main', credentialsId: 'GitHub' url: 'https://github.com/crypticseeds/e2e-pipeline.git'
                 }
             }
         }
