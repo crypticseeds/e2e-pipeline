@@ -10,7 +10,7 @@ pipeline{
         APP_NAME = "e2e-pipeline"
         RELEASE = "1.0.0"
         DOCKER_USER = "crypticseeds"
-        DOCKER_PASS = credentials"dockerhub-token"
+        DOCKER_PASS = "dockerhub-token"
         IMAGE_NAME = "${DOCKER_USER}/${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
     }
